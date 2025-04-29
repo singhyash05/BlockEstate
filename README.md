@@ -62,4 +62,4 @@ App runs at: [http://localhost:5173](http://localhost:5173)
 ![Landing Page](<Screenshots/Landing Page.jpeg>) 
 
 2. **Foundry TEST COVERAGE**
-![TEST_COVERAGE](<Screenshots/Landing Page.jpeg>) 
+![TEST_COVERAGE](<Screenshots/TEST_COVERAGE.jpeg>) 
