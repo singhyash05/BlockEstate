@@ -1,0 +1,237 @@
+.portfolio-page {
+  padding: var(--space-4) 0;
+}
+
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+}
+
+.portfolio-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0;
+}
+
+.wallet-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background-color: var(--primary-800);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 2rem;
+}
+
+.wallet-address {
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.wallet-balance {
+  background-color: var(--secondary-500);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 1rem;
+  font-weight: 600;
+}
+
+.portfolio-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: var(--space-6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--neutral-600);
+  margin-bottom: var(--space-4);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin: 0;
+}
+
+.stat-value.positive {
+  color: var(--success);
+}
+
+.stat-value.negative {
+  color: var(--error);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.property-performance {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background-color: var(--neutral-100);
+  border-radius: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+.performance-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.performance-label {
+  font-size: 0.75rem;
+  color: var(--neutral-500);
+}
+
+.performance-value {
+  font-weight: 600;
+  color: var(--neutral-800);
+}
+
+.performance-value.positive {
+  color: var(--success);
+}
+
+.performance-value.negative {
+  color: var(--error);
+}
+
+.portfolio-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.action-button {
+  flex: 1;
+  padding: var(--space-2);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button.list {
+  background-color: var(--secondary-500);
+  color: white;
+}
+
+.action-button.list:hover {
+  background-color: var(--secondary-600);
+}
+
+.action-button.manage {
+  background-color: var(--primary-600);
+  color: white;
+}
+
+.action-button.manage:hover {
+  background-color: var(--primary-700);
+}
+
+.no-properties {
+  text-align: center;
+  padding: var(--space-10) var(--space-4);
+  background-color: var(--neutral-100);
+  border-radius: 1rem;
+}
+
+.no-properties h3 {
+  font-size: 1.5rem;
+  color: var(--neutral-800);
+  margin-bottom: var(--space-2);
+}
+
+.no-properties p {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-6);
+}
+
+.connect-wallet-prompt {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  background-color: var(--neutral-100);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.connect-wallet-prompt h2 {
+  font-size: 2rem;
+  color: var(--neutral-800);
+  margin-bottom: var(--space-2);
+}
+
+.connect-wallet-prompt p {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-6);
+  max-width: 400px;
+}
+
+@media (max-width: 1024px) {
+  .portfolio-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .portfolio-title {
+    font-size: 2rem;
+  }
+  
+  .property-performance {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-stats,
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
