@@ -46,3 +46,47 @@
     margin-top: 1.5rem;
   }
   
+  .relist-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  /* In PropertyCard.css or a global CSS */
+  .relist-section input {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+
+  .relist-section label {
+    font-weight: 500;
+  }
+  
+  .relist-section input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 200px;
+    font-size: 1rem;
+  }
+  
+  .relist-section button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #c62828; /* red shade to match your primary theme */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .relist-section button:hover {
+    background-color: #a01919;
+  }
+  

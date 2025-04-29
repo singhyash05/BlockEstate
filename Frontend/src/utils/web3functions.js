@@ -16,6 +16,23 @@ export const connectWallet = async () => {
   }
 };
 
+// 🔼 Re-list an existing property with a new price
+export const relistProperty = async (propertyId, priceInEther, account) => {
+	try {
+	  const { contract } = await connectWallet();
+  
+	  await contract.methods
+		.listProperty(propertyId, priceInEther)
+		.send({ from: account });
+  
+	  console.log(`✅ Property ${propertyId} listed at ${priceInEther} ETH`);
+	  return { success: true };
+	} catch (err) {
+	  console.error('❌ Re-listing failed:', err);
+	  throw err;
+	}
+  };
+  
 export const getSavedConnection = () => {
   const account = localStorage.getItem('connectedAccount');
   if (account && window.ethereum) {

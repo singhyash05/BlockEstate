@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { connectWallet, buyProperty } from '../../utils/web3functions';
 import Button from '../common/Button';
 import './PropertyDetails.css';
+import { relistProperty } from '../../utils/web3functions';
 
 export default function PropertyDetails() {
   const navigate = useNavigate();
   const { property } = useLocation().state || {};
   const [loading, setLoading] = useState(false);
+  const [relistPrice, setRelistPrice] = useState('');
+
 
   if (!property) {
     return (
@@ -32,6 +35,25 @@ export default function PropertyDetails() {
       setLoading(false);
     }
   };
+  const handleRelist = async () => {
+    if (!relistPrice || isNaN(relistPrice)) {
+      alert('❌ Invalid price in Wei.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const { account } = await connectWallet();
+      await relistProperty(property.id, relistPrice, account);
+      alert(`✅ Property re-listed for ${relistPrice} Wei.`);
+    } catch (error) {
+      console.error('Re-listing failed:', error);
+      alert('❌ Failed to relist property.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div className="property-details">
@@ -48,7 +70,25 @@ export default function PropertyDetails() {
             <Button variant="primary" size="large" onClick={handleBuy} disabled={loading}>
               {loading ? 'Processing...' : 'Buy Now'}
             </Button>
+
+            <div className="relist-section">
+              <label htmlFor="relistPrice">New Price (Wei):</label>
+              <input
+                type="number"
+                id="relistPrice"
+                value={relistPrice}
+                onChange={(e) => setRelistPrice(e.target.value)}
+                placeholder="Enter price"
+              />
+              <button onClick={handleRelist} disabled={loading || !relistPrice}>
+                {loading ? 'Processing...' : 'Relist Property'}
+              </button>
+            </div>
+
           </div>
+
+
+
         </div>
       </div>
     </div>

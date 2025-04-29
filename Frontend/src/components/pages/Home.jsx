@@ -61,7 +61,7 @@ function Home() {
       </section>
 
       <section className="how-it-works">
-        <h2 className="somethinghow">        How It Works</h2>
+        <h2 className="somethinghow">How It Works</h2>
         <div className="steps-container">
           <div className="step-item">
             <div className="step-number">1</div>
