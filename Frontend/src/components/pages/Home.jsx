@@ -1,17 +1,33 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import PropertyCard from '../common/PropertyCard'
-import Button from '../common/Button'
-import { properties } from '../../utils/mockData'
-import './Home.css'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropertyCard from '../common/PropertyCard';
+import Button from '../common/Button';
+import { fetchListedProperties } from '../../utils/web3functions';
+import './Home.css';
 
 function Home() {
-  const [featuredProperties, setFeaturedProperties] = useState([])
-  
+  const [featuredProperties, setFeaturedProperties] = useState([]);
+
   useEffect(() => {
-    setFeaturedProperties(properties.slice(0, 4))
-  }, [])
-  
+    const loadFeatured = async () => {
+      try {
+        const props = await fetchListedProperties();
+        const normalized = props.map(p => ({
+          ...p,
+          area: typeof p.area === 'bigint' ? Number(p.area) : p.area,
+          category: typeof p.category === 'number' ? p.category.toString() : p.category,
+        }));
+
+        // Take the first 4 properties (or filter for 'featured' if tagged)
+        console.log('Featured properties:', normalized.slice(0, 4));
+        setFeaturedProperties(normalized.slice(0, 4));
+      } catch (err) {
+        console.error('Error fetching featured properties:', err);
+      }
+    };
+    loadFeatured();
+  }, []);
+
   return (
     <div className="home-page">
       <section className="hero-section">
@@ -31,7 +47,7 @@ function Home() {
           </div>
         </div>
       </section>
-      
+
       <section className="featured-section">
         <div className="section-header">
           <h2 className="section-title">Featured Properties</h2>
@@ -43,9 +59,9 @@ function Home() {
           ))}
         </div>
       </section>
-      
+
       <section className="how-it-works">
-        <h2 className="section-title">How It Works</h2>
+        <h2 className="somethinghow">        How It Works</h2>
         <div className="steps-container">
           <div className="step-item">
             <div className="step-number">1</div>
@@ -54,7 +70,6 @@ function Home() {
               Link your crypto wallet to browse, buy, or list properties on our platform.
             </p>
           </div>
-          
           <div className="step-item">
             <div className="step-number">2</div>
             <h3 className="step-title">Browse Properties</h3>
@@ -62,7 +77,6 @@ function Home() {
               Explore our curated collection of real estate from around the world.
             </p>
           </div>
-          
           <div className="step-item">
             <div className="step-number">3</div>
             <h3 className="step-title">Purchase with Crypto</h3>
@@ -70,7 +84,6 @@ function Home() {
               Buy properties directly with cryptocurrency through secure smart contracts.
             </p>
           </div>
-          
           <div className="step-item">
             <div className="step-number">4</div>
             <h3 className="step-title">Manage Your Portfolio</h3>
@@ -81,7 +94,7 @@ function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

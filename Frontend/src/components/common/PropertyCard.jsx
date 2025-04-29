@@ -13,7 +13,7 @@ function PropertyCard({ property }) {
       <div className="property-image-container">
         <img src={property.imageUrl} alt={property.name} className="property-image" />
         {property.category && (
-          <div className="property-category">{property.category}</div>
+          <div className="property-category">{property.id}</div>
         )}
       </div>
 

@@ -96,6 +96,7 @@
 /* Featured Properties Section */
 .featured-section {
   padding: var(--space-6) 0;
+
 }
 
 .section-header {
@@ -108,7 +109,7 @@
 .section-title {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--neutral-900);
+  color: var(--white-900);
   margin-bottom: 0;
 }
 
@@ -163,6 +164,11 @@
   font-size: 1.25rem;
   border-radius: 50%;
   margin-bottom: var(--space-4);
+}
+
+.somethinghow {
+  color:black;
+  margin-left: 30 px;
 }
 
 .step-title {

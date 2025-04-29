@@ -4,8 +4,8 @@ import Button from '../common/Button';
 import { PinataSDK } from 'pinata';
 
 const pinata = new PinataSDK({
-  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1MDQ4NTM5Ni0yMmRlLTQ0NzEtOWI5My04ZGJiNTk5ZTQyY2MiLCJlbWFpbCI6Im1lMjMwMDAzMDcwQGlpdGkuYWMuaW4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiN2JhODJlNzA0OTA3NDk0OTgwZWEiLCJzY29wZWRLZXlTZWNyZXQiOiJkYjY3ZDI4ZDcxYTRkMDAwN2MwNDMzNmFkZGVlODQ1ZDU4YWY0ZGFjODZiYTI4NTQ1YWE3MTQ0ZTIwY2ExMmYzIiwiZXhwIjoxNzc3NDk0OTc3fQ.K66caUuj0v2zvQnXlmrB9EwB4WTOu3VumHHv8-EYA3Y', // 🔐 Replace this with your actual JWT token
-  pinataGateway:  import.meta.env.VITE_GATEWAY_URL,
+  pinataJwt: 'YOUR_JWT_HERE',
+  pinataGateway: import.meta.env.VITE_GATEWAY_URL,
 });
 
 function ListPageForm() {
@@ -73,15 +73,42 @@ function ListPageForm() {
   return (
     <form onSubmit={handleSubmit}>
       <h2>List Property</h2>
+
+      <label>Location</label>
       <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" required />
+
+      <label>Property Name</label>
       <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+
+      <label>Description</label>
       <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" rows={3} required />
-      <input type="number" name="area" value={formData.area} onChange={handleChange} placeholder="Area (sq ft)" required />
+
+      <label>Area (sq ft)</label>
+      <input type="number" name="area" value={formData.area} onChange={handleChange} placeholder="Area" required />
+
+      <label>Upload Image (max 100KB)</label>
+
       <input type="file" accept="image/*" onChange={handleFileChange} />
-      <Button type="button" onClick={handleUploadImage} disabled={!file}>{uploadStatus || 'Upload Image'}</Button>
-      <input type="number" name="tagIndex" value={formData.tagIndex} onChange={handleChange} placeholder="Tag Index" required />
-      <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price (Wei)" required />
-      <Button type="submit" disabled={loading}>{loading ? 'Listing...' : 'List Property'}</Button>
+      <br></br>
+      <Button type="button" onClick={handleUploadImage} disabled={!file}>
+        {uploadStatus || 'Upload Image'}
+      </Button>
+      <br></br>
+
+      <label>Category</label>
+      <select name="tagIndex" value={formData.tagIndex} onChange={handleChange} required>
+        <option value={0}>Beachside</option>
+        <option value={1}>Luxury</option>
+        <option value={2}>Rooftop</option>
+        <option value={3}>Apartment</option>
+      </select>
+
+      <label>Price (in Wei)</label>
+      <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
+
+      <Button type="submit" disabled={loading}>
+        {loading ? 'Listing...' : 'List Property'}
+      </Button>
     </form>
   );
 }
