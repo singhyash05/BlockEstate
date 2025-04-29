@@ -56,3 +56,10 @@ App runs at: [http://localhost:5173](http://localhost:5173)
 - 🔗 **Decentralized Flow** – All user interactions are permissionless and wallet-based
 
 ---
+
+## Screenshots
+1. **Landing Page**
+![Landing Page](<Screenshots/Landing Page.jpeg>) 
+
+2. **Foundry TEST COVERAGE**
+![TEST_COVERAGE](<Screenshots/Landing Page.jpeg>) 
