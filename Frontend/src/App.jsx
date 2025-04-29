@@ -4,8 +4,11 @@ import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
 import Home from './components/pages/Home'
 import ExplorePage from './components/pages/ExplorePage'
-import YourListings from './components/pages/YourListings'
 import Portfolio from './components/pages/Portfolio'
+import ListPageForm from './components/pages/ListPageForm'
+import PropertyDetails from './components/common/PropertyDetails'
+
+
 import './App.css'
 
 function App() {
@@ -23,8 +26,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<ExplorePage />} />
-            <Route path="/listings" element={<YourListings />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/listing" element={<ListPageForm />} />
+            <Route path="/property-details" element={<PropertyDetails />} />
           </Routes>
         </main>
         <Footer />

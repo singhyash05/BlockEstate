@@ -46,7 +46,6 @@ function Navbar() {
         <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
           <li className="navbar-item"><Link to="/" className={`navbar-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link></li>
           <li className="navbar-item"><Link to="/explore" className={`navbar-link ${location.pathname === '/explore' ? 'active' : ''}`}>Explore</Link></li>
-          <li className="navbar-item"><Link to="/listings" className={`navbar-link ${location.pathname === '/listings' ? 'active' : ''}`}>Your Listings</Link></li>
           <li className="navbar-item"><Link to="/portfolio" className={`navbar-link ${location.pathname === '/portfolio' ? 'active' : ''}`}>Portfolio</Link></li>
           <li className="navbar-item">
             {account ? (

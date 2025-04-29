@@ -25,7 +25,7 @@ function Home() {
             <Link to="/explore">
               <Button variant="primary" size="large">Explore Properties</Button>
             </Link>
-            <Link to="/listings">
+            <Link to="/listing">
               <Button variant="outline" size="large">List Your Property</Button>
             </Link>
           </div>
