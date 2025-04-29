@@ -90,8 +90,38 @@ export const buyProperty = async (id, priceInWei, account) => {
     throw err;
   }
 };
+export const fetchMyProperties = async (ownerAddress) => {
+	try {
+	  const { contract } = await connectWallet();
+	  const ids = await contract.methods.getPropertiesByOwner(ownerAddress).call();
+  
+	  const properties = await Promise.all(
+		ids.map(async (id) => {
+		  const p = await contract.methods.getProperty(id).call();
+		  return {
+			id: id.toString(),
+			location: p.location,
+			name: p.name,
+			description: p.description,
+			price: Web3.utils.fromWei(p.price.toString(), 'ether'),
+			imageUrl: p.tokenURI,
+			area: Number(p.area),
+			category: p.tag.toString(),
+		  };
+		})
+	  );
+  
+	  return properties;
+	} catch (err) {
+	  console.error('❌ Error fetching properties by owner:', err);
+	  throw err;
+	}
+  };
+  
 
-// Replace with your actual ABI and deployed contract address
+
+const CONTRACT_ADDRESS = '0x86D0DA5104Bc32F6e97f721B542f3Ef5d7C6a571';
+
 const CONTRACT_ABI = [
 	{
 		"inputs": [
@@ -439,5 +469,3 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-
-const CONTRACT_ADDRESS = '0x86D0DA5104Bc32F6e97f721B542f3Ef5d7C6a571';
