@@ -31,6 +31,7 @@ function ExplorePage() {
           area: typeof p.area === 'bigint' ? Number(p.area) : p.area,
           category: typeof p.category === 'number' ? p.category.toString() : p.category,
         }));
+        console.log(normalized);
         setAllProperties(normalized);
       } catch (err) {
         console.error('Error fetching listed properties:', err);

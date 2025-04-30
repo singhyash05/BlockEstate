@@ -17,7 +17,7 @@ function Portfolio() {
 
         const properties = await fetchMyProperties(account);
         setPortfolio(properties);
-
+        console.log('Portfolio:', properties);
         const balance = await web3.eth.getBalance(account);
         setWalletBalance(Number(web3.utils.fromWei(balance, 'ether')));
       } catch (error) {

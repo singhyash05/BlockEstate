@@ -82,6 +82,7 @@ export const fetchListedProperties = async () => {
           imageUrl: p.tokenURI,
           area: Number(p.area),
           category: p.tag.toString(),
+		  ownerAddress: p.owner
         };
       })
     );
@@ -124,6 +125,8 @@ export const fetchMyProperties = async (ownerAddress) => {
 			imageUrl: p.tokenURI,
 			area: Number(p.area),
 			category: p.tag.toString(),
+			ownerAddress: p.owner
+
 		  };
 		})
 	  );
