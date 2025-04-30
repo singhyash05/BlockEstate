@@ -1,11 +1,18 @@
+// src/components/ListPageForm.jsx
 import { useState } from 'react';
 import { connectWallet, createAndListProperty } from '../../utils/web3functions';
 import Button from '../common/Button';
 import { PinataSDK } from 'pinata';
 
+// ——— Define your gateway string up front ———
+const rawGateway = import.meta.env.VITE_GATEWAY_URL;
+const gateway = rawGateway.startsWith('http')
+  ? rawGateway
+  : `https://${rawGateway}`;
+
 const pinata = new PinataSDK({
-  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1MDQ4NTM5Ni0yMmRlLTQ0NzEtOWI5My04ZGJiNTk5ZTQyY2MiLCJlbWFpbCI6Im1lMjMwMDAzMDcwQGlpdGkuYWMuaW4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiN2JhODJlNzA0OTA3NDk0OTgwZWEiLCJzY29wZWRLZXlTZWNyZXQiOiJkYjY3ZDI4ZDcxYTRkMDAwN2MwNDMzNmFkZGVlODQ1ZDU4YWY0ZGFjODZiYTI4NTQ1YWE3MTQ0ZTIwY2ExMmYzIiwiZXhwIjoxNzc3NDk0OTc3fQ.K66caUuj0v2zvQnXlmrB9EwB4WTOu3VumHHv8-EYA3Y', // 🔐 Replace this with your actual JWT token
-  pinataGateway: 'emerald-fantastic-frog-861.mypinata.cloud', // 🌐 Replace with your gateway (from dashboard)
+  pinataJwt: import.meta.env.VITE_PINATA_JWT,   // put your JWT in .env
+  pinataGateway: gateway,                       // full URL now
 });
 
 export default function ListPageForm() {
@@ -18,35 +25,37 @@ export default function ListPageForm() {
     tagIndex: 0,
     price: '0',
   });
-
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((p) => ({ ...p, [name]: value }));
   };
 
   const handleFileChange = (e) => {
-    const selected = e.target.files?.[0] ?? null;
-    if (selected && selected.size / 1024 > 100) {
+    const f = e.target.files?.[0] || null;
+    if (f && f.size > 100 * 1024) {
       alert('File must be <100KB');
       return;
     }
-    setFile(selected);
+    setFile(f);
   };
 
   const handleUploadImage = async () => {
-    if (!file) return alert('Please select a file');
+    if (!file) {
+      alert('Please select a file');
+      return;
+    }
     try {
-      setUploadStatus('Uploading...');
+      setUploadStatus('Uploading…');
       const { cid } = await pinata.upload.public.file(file);
-      const ipfsLink = pinata.gateways.public.convert(cid);
-      setFormData((prev) => ({ ...prev, tokenURI: ipfsLink }));
+
+      // build a proper string URL
+      const ipfsLink = `${gateway}/ipfs/${cid}`;
+
+      setFormData((p) => ({ ...p, tokenURI: ipfsLink }));
       setUploadStatus('Image uploaded!');
     } catch (err) {
       console.error(err);
@@ -56,7 +65,10 @@ export default function ListPageForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.tokenURI) return alert('Upload image first');
+    if (!formData.tokenURI) {
+      alert('Upload image first');
+      return;
+    }
     setLoading(true);
     try {
       const { account, contract } = await connectWallet();
@@ -65,8 +77,9 @@ export default function ListPageForm() {
     } catch (err) {
       console.error(err);
       alert('Listing failed');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -136,7 +149,7 @@ export default function ListPageForm() {
       />
 
       <Button type="submit" disabled={loading}>
-        {loading ? 'Listing...' : 'List Property'}
+        {loading ? 'Listing…' : 'List Property'}
       </Button>
     </form>
   );
