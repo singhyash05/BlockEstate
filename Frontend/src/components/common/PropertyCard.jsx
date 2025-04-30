@@ -34,6 +34,7 @@ function PropertyCard({ property }) {
         <div className="property-meta">
           <div className="meta-item"><strong>Area:</strong> {property.area} sqm</div>
           <div className="meta-item"><strong>Price:</strong> {property.price} ETH</div>
+
         </div>
       </div>
 

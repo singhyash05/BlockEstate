@@ -4,11 +4,11 @@ import Button from '../common/Button';
 import { PinataSDK } from 'pinata';
 
 const pinata = new PinataSDK({
-  pinataJwt: 'YOUR_JWT_HERE',
+  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3J...', // your JWT
   pinataGateway: import.meta.env.VITE_GATEWAY_URL,
 });
 
-function ListPageForm() {
+export default function ListPageForm() {
   const [formData, setFormData] = useState({
     location: '',
     name: '',
@@ -32,21 +32,20 @@ function ListPageForm() {
   };
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile.size / 1024 > 100) {
+    const selected = e.target.files?.[0] ?? null;
+    if (selected && selected.size / 1024 > 100) {
       alert('File must be <100KB');
       return;
     }
-    setFile(selectedFile);
+    setFile(selected);
   };
 
   const handleUploadImage = async () => {
     if (!file) return alert('Please select a file');
-
     try {
       setUploadStatus('Uploading...');
-      const upload = await pinata.upload.public.file(file);
-      const ipfsLink = await pinata.gateways.public.convert(upload.cid);
+      const { cid } = await pinata.upload.public.file(file);
+      const ipfsLink = pinata.gateways.public.convert(cid);
       setFormData((prev) => ({ ...prev, tokenURI: ipfsLink }));
       setUploadStatus('Image uploaded!');
     } catch (err) {
@@ -74,37 +73,67 @@ function ListPageForm() {
     <form onSubmit={handleSubmit}>
       <h2>List Property</h2>
 
-      <label>Location</label>
-      <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" required />
+      <input
+        type="text"
+        name="location"
+        value={formData.location}
+        onChange={handleChange}
+        placeholder="Location"
+        required
+      />
 
-      <label>Property Name</label>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+      <input
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Name"
+        required
+      />
 
-      <label>Description</label>
-      <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" rows={3} required />
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        placeholder="Description"
+        rows={3}
+        required
+      />
 
-      <label>Area (sq ft)</label>
-      <input type="number" name="area" value={formData.area} onChange={handleChange} placeholder="Area" required />
-
-      <label>Upload Image (max 100KB)</label>
+      <input
+        type="number"
+        name="area"
+        value={formData.area}
+        onChange={handleChange}
+        placeholder="Area (sq ft)"
+        required
+      />
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
-      <br></br>
       <Button type="button" onClick={handleUploadImage} disabled={!file}>
         {uploadStatus || 'Upload Image'}
       </Button>
-      <br></br>
 
-      <label>Category</label>
-      <select name="tagIndex" value={formData.tagIndex} onChange={handleChange} required>
+      <select
+        name="tagIndex"
+        value={formData.tagIndex}
+        onChange={handleChange}
+        required
+      >
         <option value={0}>Beachside</option>
         <option value={1}>Luxury</option>
         <option value={2}>Rooftop</option>
         <option value={3}>Apartment</option>
       </select>
 
-      <label>Price (in Wei)</label>
-      <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
+      <input
+        type="number"
+        name="price"
+        value={formData.price}
+        onChange={handleChange}
+        placeholder="Price (Wei)"
+        required
+      />
 
       <Button type="submit" disabled={loading}>
         {loading ? 'Listing...' : 'List Property'}
@@ -112,5 +141,3 @@ function ListPageForm() {
     </form>
   );
 }
-
-export default ListPageForm;

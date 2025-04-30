@@ -79,6 +79,8 @@ export default function PropertyDetails() {
           <p><strong>Category:</strong> {property.category}</p>
           <p><strong>Area:</strong> {property.area} sq ft</p>
           <p><strong>Price:</strong> {property.price} ETH</p>
+          <p><strong>Description:</strong> {property.description} ETH</p>
+
 
           <div className="details-actions">
             {!isOwner && (
