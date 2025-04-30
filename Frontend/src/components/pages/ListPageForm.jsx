@@ -4,8 +4,8 @@ import Button from '../common/Button';
 import { PinataSDK } from 'pinata';
 
 const pinata = new PinataSDK({
-  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3J...', // your JWT
-  pinataGateway: import.meta.env.VITE_GATEWAY_URL,
+  pinataJwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1MDQ4NTM5Ni0yMmRlLTQ0NzEtOWI5My04ZGJiNTk5ZTQyY2MiLCJlbWFpbCI6Im1lMjMwMDAzMDcwQGlpdGkuYWMuaW4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiN2JhODJlNzA0OTA3NDk0OTgwZWEiLCJzY29wZWRLZXlTZWNyZXQiOiJkYjY3ZDI4ZDcxYTRkMDAwN2MwNDMzNmFkZGVlODQ1ZDU4YWY0ZGFjODZiYTI4NTQ1YWE3MTQ0ZTIwY2ExMmYzIiwiZXhwIjoxNzc3NDk0OTc3fQ.K66caUuj0v2zvQnXlmrB9EwB4WTOu3VumHHv8-EYA3Y', // 🔐 Replace this with your actual JWT token
+  pinataGateway: 'emerald-fantastic-frog-861.mypinata.cloud', // 🌐 Replace with your gateway (from dashboard)
 });
 
 export default function ListPageForm() {
